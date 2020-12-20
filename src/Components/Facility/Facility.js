@@ -2,7 +2,7 @@ import React from 'react';
 
 const Facility = () => {
     return (
-        <div className="p-3">
+        <div className="mt-2">
             <h5>Facility Name</h5>
         </div>
     );

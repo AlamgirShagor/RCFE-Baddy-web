@@ -1,0 +1,7 @@
+@font-face{
+    src :url(./font/font.woff2);
+    font-family: googlesans;
+}
+body{
+    font-family: googlesans, sans-serif;
+}

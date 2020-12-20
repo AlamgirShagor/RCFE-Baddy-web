@@ -1,34 +1,166 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepButton from '@material-ui/core/StepButton';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+  },
+  button: {
+    marginRight: theme.spacing(1),
+  },
+  backButton: {
+    marginRight: theme.spacing(1),
+  },
+  completed: {
+    display: 'inline-block',
+  },
+  instructions: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+}));
+
+function getSteps() {
+  return [' Name ', 'Source', 'Fields', 'Fields', 'Schedule',' Name ', 'Source', 'Fields', 'Fields', 'Schedule'];
+}
+
+function getStepContent(step) {
+  switch (step) {
+    case 0:
+      return 'Step 1: Select campaign settings...';
+    case 1:
+      return 'Step 2: What is an ad group anyways?';
+    case 2:
+      return 'Step 3: This is the bit I really care about!';
+    default:
+      return 'Unknown step';
+  }
+}
 const TopPagination = () => {
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [completed, setCompleted] = React.useState(new Set());
+  const [skipped, setSkipped] = React.useState(new Set());
+  const steps = getSteps();
+
+  const totalSteps = () => {
+    return getSteps().length;
+  };
+
+  const isStepOptional = (step) => {
+    return step === 1;
+  };
+
+  const handleSkip = () => {
+    if (!isStepOptional(activeStep)) {
+      // You probably want to guard against something like this
+      // it should never occur unless someone's actively trying to break something.
+      throw new Error("You can't skip a step that isn't optional.");
+    }
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped((prevSkipped) => {
+      const newSkipped = new Set(prevSkipped.values());
+      newSkipped.add(activeStep);
+      return newSkipped;
+    });
+  };
+
+  const skippedSteps = () => {
+    return skipped.size;
+  };
+
+  const completedSteps = () => {
+    return completed.size;
+  };
+
+  const allStepsCompleted = () => {
+    return completedSteps() === totalSteps() - skippedSteps();
+  };
+
+  const isLastStep = () => {
+    return activeStep === totalSteps() - 1;
+  };
+
+  const handleNext = () => {
+    const newActiveStep =
+      isLastStep() && !allStepsCompleted()
+        ? // It's the last step, but not all steps have been completed
+          // find the first step that has been completed
+          steps.findIndex((step, i) => !completed.has(i))
+        : activeStep + 1;
+
+    setActiveStep(newActiveStep);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleStep = (step) => () => {
+    setActiveStep(step);
+  };
+
+  const handleComplete = () => {
+    const newCompleted = new Set(completed);
+    newCompleted.add(activeStep);
+    setCompleted(newCompleted);
+
+    /**
+     * Sigh... it would be much nicer to replace the following if conditional with
+     * `if (!this.allStepsComplete())` however state is not set when we do this,
+     * thus we have to resort to not being very DRY.
+     */
+    if (completed.size !== totalSteps() - skippedSteps()) {
+      handleNext();
+    }
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+    setCompleted(new Set());
+    setSkipped(new Set());
+  };
+
+  const isStepSkipped = (step) => {
+    return skipped.has(step);
+  };
+
+  function isStepComplete(step) {
+    return completed.has(step);
+  }
   return (
-    <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
-      <li class="page-item"><Link class="page-link" to="/">1</Link></li>
-      <li class="page-item"><Link class="page-link" to="/">2</Link></li>
-      <li class="page-item"><Link class="page-link" to="/">3</Link></li>
-      <li class="page-item"><Link class="page-link" to="/">4</Link></li>
-      <li class="page-item"><Link class="page-link" to="/">5</Link></li>
-      <li class="page-item"><Link class="page-link" to="/">6</Link></li>
-      <li class="page-item"><Link class="page-link" to="/">7</Link></li>
-      <li class="page-item"><Link class="page-link" to="/">8</Link></li>
-      <li class="page-item"><Link class="page-link" to="/">9</Link></li>
-      <li class="page-item"><Link class="page-link" to="/">10</Link></li>
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Next</span>
-        </a>
-      </li>
-    </ul>
-</nav>
+    <div className={classes.root}>
+    <Stepper alternativeLabel nonLinear activeStep={activeStep}>
+      {steps.map((label, index) => {
+        const stepProps = {};
+        const buttonProps = {};
+        if (isStepOptional(index)) {
+          buttonProps.optional = <Typography variant="caption"></Typography>;
+        }
+        if (isStepSkipped(index)) {
+          stepProps.completed = false;
+        }
+        return (
+          <Step key={label} {...stepProps}>
+            <StepButton
+              onClick={handleStep(index)}
+              completed={isStepComplete(index)}
+              {...buttonProps}
+            >
+              {label}
+            </StepButton>
+          </Step>
+        );
+      })}
+    </Stepper>
+  </div>
   );
 };
 
