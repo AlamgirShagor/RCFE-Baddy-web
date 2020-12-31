@@ -27,8 +27,9 @@ const [loggedInInput, setLoggedInInput] = useContext(UserContext);
                 isLicensee === 'yes' &&  <div>
                     
                 <div class="form-row ">
-                        <h5>You are not Licenseeable</h5> 
-                    {/* <div className="col mb-3 d-flex">
+                        
+                    <div className="row">
+                    <div className="col mb-3 d-flex">
                         <span className="mr-3">Are you the licensee?</span>
                         <div class="form-check mr-3">
                         <input onClick={(e)=>setLicensee(e.target.value)}  class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="yes"/>
@@ -43,9 +44,13 @@ const [loggedInInput, setLoggedInInput] = useContext(UserContext);
                         </label>
                         </div>
                     </div>
+                    </div>
+                    <br/>
+                    
                 <div class="form-group col-md-6">
                     </div>
-                    <div class="form-group col-md-6">
+                    <h5>You are not Licenseeable</h5>
+                    {/* <div class="form-group col-md-6">
                         <input value={loggedInInput['LicenseeFirstName']} onChange={(e)=>setLoggedInInput({...loggedInInput, "LicenseeFirstName" : e.target.value})} type="text" class="form-control"  placeholder="First Name: "></input>
                     </div>
                     <div class="form-group col-md-6">
@@ -56,9 +61,9 @@ const [loggedInInput, setLoggedInInput] = useContext(UserContext);
                     </div>
                     <div class="form-group col-md-6">
                         <input type="text" class="form-control" id="inputPassword4" placeholder="LicenseeCity:"></input>
-                    </div>
+                    </div> */}
                 </div>
-                <div class="form-row">
+                {/* <div class="form-row">
                     <div class="form-group col-md-6">
                         <input type="text" class="form-control" value={loggedInInput['LicenseeState']} onChange={(e)=>setLoggedInInput({...loggedInInput, "LicenseeState" : e.target.value})} placeholder="State:"></input>
                     </div>
@@ -70,8 +75,8 @@ const [loggedInInput, setLoggedInInput] = useContext(UserContext);
                     </div>
                     <div class="form-group col-md-6">
                         <input type="text" class="form-control" value={loggedInInput['LicenseePhone']} onChange={(e)=>setLoggedInInput({...loggedInInput, "LicenseePhone" : e.target.value})} placeholder="Phone:"></input>
-                    </div> */}
-                </div>
+                    </div>
+                </div> */}
             </div>
                     
             }

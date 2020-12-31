@@ -41,11 +41,11 @@ const Header = () => {
                 <img style={{width: "100px"}} src={logo} alt=""/>
             </Link>
         <div className="ml-auto">
-        { loggedInUser ?  <button className="btn" style={{backgroundColor: "#4ABC7B", color: "#fff"}} onClick={signOut}>Sign Out</button>  :  <button className="btn" style={{backgroundColor: "#4ABC7B"}}>
+        { loggedInUser ?  <button className="btn" style={{backgroundColor: "#4ABC7B"}}>
                 <Link to="/Dashboard" className="text-white">
                         <span>Sign in</span>
                 </Link>
-            </button> } 
+            </button> : <button className="btn" style={{backgroundColor: "#4ABC7B", color: "#fff"}} onClick={signOut}>Sign Out</button>} 
         </div>
         </nav>
     );

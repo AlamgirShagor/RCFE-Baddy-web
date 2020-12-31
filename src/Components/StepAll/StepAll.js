@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -48,13 +48,13 @@ function getStepContent(stepIndex) {
       return 'Unknown stepIndex';
   }
 }
-const StepAll = () => {
+const StepAll = ({stepNum}) => {
+    useEffect(()=>{setActiveStep(stepNum)},[stepNum])
     const [loggedInInput, setLoggedInInput, loggedInUser] = useContext(UserContext);
-    const [finalData, setFinalData] = useState('')
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
-
+    
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
@@ -103,14 +103,6 @@ const StepAll = () => {
               >
                 Back
               </Button>
-              {/* { activeStep === steps.length - 1 ?
-                <Button variant="contained" color="primary" onclick={handleSubmit}>
-                  Submit
-                </Button>
-                : <Button variant="contained" color="primary" onClick={handleNext}>
-                  Next
-                </Button>
-              } */}
               <Button variant="contained" color="primary" onClick={handleNext}>
                 {activeStep === steps.length - 1 ? 'Next' : 'Next'}
               </Button>
