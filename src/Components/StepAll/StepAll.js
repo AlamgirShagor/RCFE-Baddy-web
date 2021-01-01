@@ -57,6 +57,13 @@ const StepAll = ({stepNum}) => {
     
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        const db = firebase.database().ref("data")
+        const data ={
+        loggedInInput,
+        loggedInUser
+      };
+      db.push(data)
+      setLoggedInInput('');
     };
 
     const handleBack = () => {
@@ -64,14 +71,6 @@ const StepAll = ({stepNum}) => {
     };
 
     const handleSubmitDB = () => {
-      const db = firebase.database().ref("data")
-      const data ={
-        loggedInInput,
-        loggedInUser
-      };
-      db.push(data)
-
-      console.log(loggedInInput);
       setLoggedInInput('');
       setActiveStep(0);
       
@@ -89,8 +88,8 @@ const StepAll = ({stepNum}) => {
       <div>
         {activeStep === steps.length ? (
           <div>
-            <Typography className={classes.instructions}>All steps completed please Submit your Data..</Typography>
-            <Button color="primary" onClick={handleSubmitDB}>Submit</Button>
+            <Typography className={classes.instructions}>All steps completed please save your Data..</Typography>
+            <Button color="primary" onClick={handleSubmitDB}>Back</Button>
           </div>
         ) : (
           <div>
@@ -104,7 +103,7 @@ const StepAll = ({stepNum}) => {
                 Back
               </Button>
               <Button variant="contained" color="primary" onClick={handleNext}>
-                {activeStep === steps.length - 1 ? 'Next' : 'Next'}
+                {activeStep === steps.length - 1 ? 'save' : 'Next'}
               </Button>
             </div>
           </div>

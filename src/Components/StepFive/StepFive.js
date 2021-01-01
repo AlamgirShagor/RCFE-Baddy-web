@@ -6,7 +6,7 @@ const StepFive = () => {
     return (
         <form >
             <div class="form-row ">
-                    <div className="col-12 ml-0 mb-3 d-flex">
+                    {/* <div className="col-12 ml-0 mb-3 d-flex">
                         <span className="mr-3">Are you in charge of this facility?</span>
                         <div class="form-check mr-3">
                         <input onClick={(e)=>setFacility(e.target.value)} class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="yes"/>
@@ -20,9 +20,9 @@ const StepFive = () => {
                             No
                         </label>
                         </div>
-                    </div>
+                    </div> */}
             
-                {
+                {/* {
                     isFacility === 'yes' && <div className="form-row">
                             <div className="col-12">
                             <span className="mx-2">Role: </span>
@@ -36,10 +36,10 @@ const StepFive = () => {
                             </div>
                             </div>
                         </div>
-                }
-                    {
-                        isFacility === 'no' && <div>
-                            <h5 className="mb-3 ml-1" style={{color: "#6C757D"}}>Add Person in Charge</h5>
+                } */}
+                    {/* {
+                        isFacility === 'no' &&  */}
+                        <div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <input type="text" class="form-control" value={loggedInInput['chargeFirstName']} onChange={(e)=>setLoggedInInput({...loggedInInput, "chargeFirstName" : e.target.value})}  placeholder="First Name:"></input>
@@ -72,7 +72,7 @@ const StepFive = () => {
                                 </div>
                             </div>
                             </div>
-                }
+                {/* } */}
             </div>
         </form>
     );
