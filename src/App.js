@@ -13,6 +13,7 @@ import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import NotFound from './Components/NotFound/NotFound'
 import StepAll from './Components/StepAll/StepAll';
 import Sidebar from './Components/Sidebar/Sidebar';
+import Home from './Components/Home/Home';
 
 export const UserContext = createContext();
 
@@ -30,26 +31,23 @@ function App() {
       <Router>
       <Switch>
         <Route exact path="/">
-          <Dashboard></Dashboard>
+          <Home></Home>
         </Route>
-        <Route exact path="/Home">
+        <PrivateRoute exact path="/BasicInformation">
           <Dashboard></Dashboard>
-        </Route>
-        <Route exact path="/BasicInformation">
+        </PrivateRoute>
+        <PrivateRoute exact path="/AdditionalDetails">
           <Dashboard></Dashboard>
-        </Route>
-        <Route exact path="/AdditionalDetails">
+        </PrivateRoute>
+        <PrivateRoute exact path="/LicenseeInformation">
           <Dashboard></Dashboard>
-        </Route>
-        <Route exact path="/LicenseeInformation">
+        </PrivateRoute>
+        <PrivateRoute exact path="/DSS/OMBUDSMAN">
           <Dashboard></Dashboard>
-        </Route>
-        <Route exact path="/DSS/OMBUDSMAN">
+        </PrivateRoute>
+        <PrivateRoute exact path="/PersonInCharge">
           <Dashboard></Dashboard>
-        </Route>
-        <Route exact path="/PersonInCharge">
-          <Dashboard></Dashboard>
-        </Route>
+        </PrivateRoute>
         <Route exact path="/StepOne">
           <StepOne></StepOne>
         </Route>
@@ -62,7 +60,7 @@ function App() {
         <PrivateRoute path="/Dashboard">
           <Dashboard></Dashboard>
         </PrivateRoute>
-        <Route exact path="/Login">
+        <Route exact path="/Login" >
           <Login></Login>
         </Route>
         <Route path="*">

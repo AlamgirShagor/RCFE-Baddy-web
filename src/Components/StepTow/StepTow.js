@@ -22,7 +22,7 @@ const StepTow = () => {
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <input type="text" value={loggedInInput['WebSite']} onChange={(e)=>setLoggedInInput({...loggedInInput, "WebSite" : e.target.value})} class="form-control" placeholder="Web Site:"/>
+                <input type="text" value={loggedInInput['FacilityWebSite']} onChange={(e)=>setLoggedInInput({...loggedInInput, "FacilityWebSite" : e.target.value})} class="form-control" placeholder="Web Site:"/>
             </div>
             {/* <div class="form-group col-md-6">
                 <input type="text" value={loggedInInput['AdditionalCounty']} onChange={(e)=>setLoggedInInput({...loggedInInput, "AdditionalCounty" : e.target.value})} class="form-control" placeholder="County:"/>

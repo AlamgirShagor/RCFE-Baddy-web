@@ -13,8 +13,12 @@ import StepFive from '../StepFive/StepFive'
 import { UserContext } from '../../App';
 import firebase from "firebase/app";
 import firebaseConfig from '../Login/firebaseConfig';
+import 'firebase/firestore';
 import "firebase/database";
-firebase.initializeApp(firebaseConfig);
+if(firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
+var db = firebase.firestore();
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -50,21 +54,72 @@ function getStepContent(stepIndex) {
 }
 const StepAll = ({stepNum}) => {
     useEffect(()=>{setActiveStep(stepNum)},[stepNum])
-    const [loggedInInput, setLoggedInInput, loggedInUser] = useContext(UserContext);
+    const [loggedInInput, setLoggedInInput ] = useContext(UserContext);
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
     
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        const db = firebase.database().ref("data")
-        const data ={
-        loggedInInput,
-        loggedInUser
-      };
-      db.push(data)
-      setLoggedInInput('');
+        db.collection("Facility_Information_RCFE_Baddy_web")
+      .add({
+        FacilityName: loggedInInput.FacilityName,
+        FacilityAddress: loggedInInput.FacilityAddress,
+        FacilityCity: loggedInInput.FacilityCity,
+        FacilityCounty: loggedInInput.FacilityCounty,
+        FacilityState: loggedInInput.FacilityState,
+        FacilityZip: loggedInInput.FacilityZip,
+
+        FacilityPhonePublic: loggedInInput.FacilityPhonePublic,
+        FacilityPhoneDirect: loggedInInput.FacilityPhoneDirect,
+        FacilityFax: loggedInInput.FacilityFax,
+        FacilityEmail: loggedInInput.FacilityEmail,
+        FacilityWebSite: loggedInInput.FacilityWebSite,
+
+        type: loggedInInput.type,
+
+        individualFirstName: loggedInInput.individualFirstName,
+        individualLastName: loggedInInput.individualLastName,
+        individualAddress: loggedInInput.individualAddress,
+        individualCity: loggedInInput.individualCity,
+        individualState: loggedInInput.individualState,
+        individualCounty: loggedInInput.individualCounty,
+        individualZip: loggedInInput.individualZip,
+        individualPhone: loggedInInput.individualPhone,
+        individualEmail: loggedInInput.individualEmail,
+
+        EntityName: loggedInInput.EntityName,
+        Address: loggedInInput.Address,
+        City: loggedInInput.City,
+        State: loggedInInput.State,
+        County: loggedInInput.County,
+        Zip: loggedInInput.Zip,
+        Phone: loggedInInput.Phone,
+        Email: loggedInInput.Email,
+        
+
+        LocalDSSOffice: loggedInInput.LocalDSSOffice,
+        RegionalOfficeName: loggedInInput.RegionalOfficeName,
+        DSSAddress: loggedInInput.DSSAddress,
+        DSSCity: loggedInInput.DSSCity,
+        DSSState: loggedInInput.DSSState,
+        
+
+        chargeFirstName: loggedInInput.chargeFirstName,
+        chargeLastName: loggedInInput.chargeLastName,
+        chargeZip: loggedInInput.chargeZip,
+        chargeCity: loggedInInput.chargeCity,
+        chargeState: loggedInInput.chargeState,
+        chargeZip: loggedInInput.chargeZip,
+        chargePhone: loggedInInput.chargePhone,
+        chargeEmail: loggedInInput.chargeEmail
+
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
     };
+    console.log(loggedInInput);
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);

@@ -62,10 +62,7 @@ const StepFive = () => {
                                     <input type="text" class="form-control" value={loggedInInput['chargeState']} onChange={(e)=>setLoggedInInput({...loggedInInput, "chargeState" : e.target.value})} placeholder="State:"></input>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <input type="text" class="form-control" value={loggedInInput['chargeZip']} onChange={(e)=>setLoggedInInput({...loggedInInput, "chargeZip" : e.target.value})} placeholder="Zip:"></input>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <input type="text" class="form-control" value={loggedInInput['Phone']} onChange={(e)=>setLoggedInInput({...loggedInInput, "chargePhone" : e.target.value})} placeholder="Phone:"></input>
+                                <input type="text" class="form-control" value={loggedInInput['chargePhone']} onChange={(e)=>setLoggedInInput({...loggedInInput, "chargePhone" : e.target.value})} placeholder="Phone:"></input>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <input type="text" class="form-control" value={loggedInInput['chargeEmail']} onChange={(e)=>setLoggedInInput({...loggedInInput, "chargeEmail" : e.target.value})} placeholder="Email:"></input>

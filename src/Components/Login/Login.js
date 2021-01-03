@@ -2,10 +2,18 @@ import React, { useState } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../../App';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import { initializeLoginFramework, handleSignOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from './loginManager';
+import firebase from "firebase/app";
+import firebaseConfig from '../Login/firebaseConfig';
+import "firebase/database";
 
+
+import { initializeLoginFramework, handleSignOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from './loginManager';
+var db = firebase.firestore();
+if(firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
 const Login = () => {
-    const [newUser, setNewUser] = useState(false);
+  const [newUser, setNewUser] = useState(false);
   const [user, setUser] = useState({
     isSignedIn: false,
     name: '',
@@ -20,20 +28,13 @@ const Login = () => {
   const history = useHistory();
   const location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
-
-  // const signOut = () => {
-  //     handleSignOut()
-  //     .then(res => {
-  //         handleResponse(res, false);
-  //     })
-  // }
-
   const handleResponse = (res, redirect) =>{
     setUser(res);
     setLoggedInUser(res);
     if(redirect){
         history.replace(from);
     }
+    handelUserDb()
   }
 
   const handleBlur = (e) => {
@@ -66,10 +67,24 @@ const Login = () => {
         handleResponse(res, true);
       })
     }
+    
+
     e.preventDefault();
   }
-
-    return (
+  const handelUserDb = () =>{
+    db.collection("User_RCFE_Baddy_web")
+      .add({
+        name: user.name,
+        email: user.email
+      })
+      // .then(() => {
+      //   alert("Your message has been submittedðŸ‘");
+      // })
+      .catch((error) => {
+        alert(error.message);
+      });
+  }
+  return (
         <div className="container my-5">
          <div className="col-md-4 border bg-light mx-auto p-4">
          <div>
@@ -83,7 +98,8 @@ const Login = () => {
             <br/>
             <input type="password" className="form-control" name="password" onBlur={handleBlur} placeholder="Password" required/>
             <br/>
-            <input type="submit" style={{backgroundColor: "#005CC8", fontWeight: "700", color: "white"}} className="btn form-control"  value={newUser ? 'Sign up' : 'Sign in'}/>
+            {newUser ? <input type="submit" style={{backgroundColor: "#005CC8", fontWeight: "700", color: "white"}} className="btn form-control"  value='Sign up'/> :
+            <input type="submit" style={{backgroundColor: "#005CC8", fontWeight: "700", color: "white"}} className="btn form-control"  value='Sign in'/>}
           </form>
           <p style={{color: 'red'}}>{user.error}</p>
           { user.success && <p style={{color: 'green'}}>User { newUser ? 'created' : 'Logged In'} successfully</p>}
@@ -92,7 +108,7 @@ const Login = () => {
           <label htmlFor="newUser">Create ann Account</label>
           <br/>
           <span >
-          <Link to="/Home" className="text-dark">
+          <Link to="/Dashboard" className="text-dark">
               <span>&#8592;</span> Back To Home
           </Link>
           </span>

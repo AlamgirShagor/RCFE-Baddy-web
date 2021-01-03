@@ -7,6 +7,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { initializeLoginFramework, handleSignOut} from '../Login/loginManager';
 const Header = () => {
     initializeLoginFramework();
+    const [newUser, setNewUser] = useState(false);
     const [user, setUser] = useState({
         isSignedIn: false,
         name: '',
@@ -30,6 +31,7 @@ const Header = () => {
 
     const handleResponse = (res, redirect) =>{
         setUser(res);
+        setNewUser(true);
         setLoggedInUser(res);
         if(redirect){
             history.replace(from);
@@ -41,7 +43,7 @@ const Header = () => {
                 <img style={{width: "100px"}} src={logo} alt=""/>
             </Link>
         <div className="ml-auto">
-        { loggedInUser ?  <button className="btn" style={{backgroundColor: "#4ABC7B"}}>
+        { newUser ?  <button className="btn" style={{backgroundColor: "#4ABC7B"}}>
                 <Link to="/Dashboard" className="text-white">
                         <span>Sign in</span>
                 </Link>
