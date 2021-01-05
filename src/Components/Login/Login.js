@@ -58,6 +58,8 @@ const Login = () => {
       const newUserInfo = {...user};
       newUserInfo[e.target.name] = e.target.value;
       setUser(newUserInfo);
+    }else{
+      alert("it is not a registered user")
     }
   }
   const handleSubmit = (e) => {
