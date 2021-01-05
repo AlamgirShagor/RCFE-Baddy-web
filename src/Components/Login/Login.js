@@ -27,12 +27,19 @@ const Login = () => {
   const [loggedInUser, setLoggedInUser ] = useContext(UserContext);
   const history = useHistory();
   const location = useLocation();
-  let { from } = location.state || { from: { pathname: "/" } };
+  // let { from } = location.state || { from: { pathname: "/" } };
   const handleResponse = (res, redirect) =>{
     setUser(res);
     setLoggedInUser(res);
+    console.log(res);
+    if(res.success === false){
+      alert(res.error)
+    }
+    // if(res.error){
+    //   alert("this Is Worry.")
+    // }
     if(redirect){
-        history.replace(from);
+        history.replace("/Dashboard");
     }
     handelUserDb()
   }
@@ -65,6 +72,8 @@ const Login = () => {
       signInWithEmailAndPassword(user.email, user.password)
       .then(res => {
         handleResponse(res, true);
+        if(res.success === false){
+        }
       })
     }
     
@@ -97,6 +106,8 @@ const Login = () => {
             <input type="text" className="form-control" name="email" onBlur={handleBlur} placeholder="Email" required/>
             <br/>
             <input type="password" className="form-control" name="password" onBlur={handleBlur} placeholder="Password" required/>
+            <small style={{color: "#C4CCDB"}}>Password will up to 6 Caracter with a latter </small>
+            <br/>
             <br/>
             {newUser ? <input type="submit" style={{backgroundColor: "#005CC8", fontWeight: "700", color: "white"}} className="btn form-control"  value='Sign up'/> :
             <input type="submit" style={{backgroundColor: "#005CC8", fontWeight: "700", color: "white"}} className="btn form-control"  value='Sign in'/>}

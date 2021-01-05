@@ -4,6 +4,7 @@ import Facility from '../Facility/Facility';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import HelpCenter from '../HelpCenter/HelpCenter';
+import Login from '../Login/Login';
 import Sidebar from '../Sidebar/Sidebar';
 import StepAll from '../StepAll/StepAll';
 const Home = () => {
@@ -21,17 +22,7 @@ const Home = () => {
                 <div className="col-lg-10">
                     <div className="row">
                     <div className="col-lg-9">
-                    <div className="d-flex align-items-center justify-content-center m-5">
-                        <div className=" text-center">
-                            <h2>Welcome RCFE Baddy</h2>
-                            <p>please Sign in your Account</p>
-                            <button className="btn" style={{backgroundColor: "#4ABC7B"}}>
-                                <Link to="/Dashboard" className="text-white">
-                                        <span>Sign in</span>
-                                </Link>
-                            </button>
-                        </div>
-                    </div>
+                    <Login></Login>
                     </div>
                     <div className="col-lg-3">
                     <HelpCenter></HelpCenter>

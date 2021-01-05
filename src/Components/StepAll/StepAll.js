@@ -59,7 +59,7 @@ const StepAll = ({stepNum}) => {
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
     
-    const handleNext = () => {
+    const handleNext0 = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         db.collection("Facility_Information_RCFE_Baddy_web")
       .add({
@@ -68,13 +68,32 @@ const StepAll = ({stepNum}) => {
         FacilityCity: loggedInInput.FacilityCity,
         FacilityCounty: loggedInInput.FacilityCounty,
         FacilityState: loggedInInput.FacilityState,
-        FacilityZip: loggedInInput.FacilityZip,
+        FacilityZip: loggedInInput.FacilityZip
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+    };
+    const handleNext1 = () => {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      db.collection("Facility_Information_RCFE_Baddy_web")
+    .add({
 
-        FacilityPhonePublic: loggedInInput.FacilityPhonePublic,
-        FacilityPhoneDirect: loggedInInput.FacilityPhoneDirect,
-        FacilityFax: loggedInInput.FacilityFax,
-        FacilityEmail: loggedInInput.FacilityEmail,
-        FacilityWebSite: loggedInInput.FacilityWebSite,
+      FacilityPhonePublic: loggedInInput.FacilityPhonePublic,
+      FacilityPhoneDirect: loggedInInput.FacilityPhoneDirect,
+      FacilityFax: loggedInInput.FacilityFax,
+      FacilityEmail: loggedInInput.FacilityEmail,
+      FacilityWebSite: loggedInInput.FacilityWebSite
+
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+  };
+  const handleNext2 = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    db.collection("Facility_Information_RCFE_Baddy_web")
+  .add({
 
         type: loggedInInput.type,
 
@@ -95,15 +114,33 @@ const StepAll = ({stepNum}) => {
         County: loggedInInput.County,
         Zip: loggedInInput.Zip,
         Phone: loggedInInput.Phone,
-        Email: loggedInInput.Email,
-        
+        Email: loggedInInput.Email
+
+  })
+  .catch((error) => {
+    alert(error.message);
+  });
+};
+const handleNext3 = () => {
+  setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  db.collection("Facility_Information_RCFE_Baddy_web")
+.add({
 
         LocalDSSOffice: loggedInInput.LocalDSSOffice,
         RegionalOfficeName: loggedInInput.RegionalOfficeName,
         DSSAddress: loggedInInput.DSSAddress,
         DSSCity: loggedInInput.DSSCity,
-        DSSState: loggedInInput.DSSState,
-        
+        DSSState: loggedInInput.DSSState
+
+})
+.catch((error) => {
+  alert(error.message);
+});
+};
+const handleNext4 = () => {
+  setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  db.collection("Facility_Information_RCFE_Baddy_web")
+.add({
 
         chargeFirstName: loggedInInput.chargeFirstName,
         chargeLastName: loggedInInput.chargeLastName,
@@ -114,19 +151,16 @@ const StepAll = ({stepNum}) => {
         chargePhone: loggedInInput.chargePhone,
         chargeEmail: loggedInInput.chargeEmail
 
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-    };
-    console.log(loggedInInput);
-
+})
+.catch((error) => {
+  alert(error.message);
+});
+};
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
     const handleSubmitDB = () => {
-      setLoggedInInput('');
       setActiveStep(0);
       
     };
@@ -149,7 +183,7 @@ const StepAll = ({stepNum}) => {
         ) : (
           <div>
             <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between mb-2">
               <Button
                 disabled={activeStep === 0}
                 onClick={handleBack}
@@ -157,9 +191,34 @@ const StepAll = ({stepNum}) => {
               >
                 Back
               </Button>
-              <Button variant="contained" color="primary" onClick={handleNext}>
+              {activeStep === 0 &&<Button variant="contained" color="primary" onClick={handleNext0}>
+              Next
+              </Button>
+
+              }
+              {activeStep === 1 &&<Button variant="contained" color="primary" onClick={handleNext1}>
+              Next
+              </Button>
+
+              }
+              {activeStep === 2 &&<Button variant="contained" color="primary" onClick={handleNext2}>
+              Next
+              </Button>
+
+              }
+              {activeStep === 3 &&<Button variant="contained" color="primary" onClick={handleNext3}>
+              Next
+              </Button>
+
+              }
+              {activeStep === 4 &&<Button variant="contained" color="primary" onClick={handleNext4}>
                 {activeStep === steps.length - 1 ? 'save' : 'Next'}
               </Button>
+
+              }
+              {/* <Button variant="contained" color="primary" onClick={handleNext}>
+                {activeStep === steps.length - 1 ? 'save' : 'Next'}
+              </Button> */}
             </div>
           </div>
         )}

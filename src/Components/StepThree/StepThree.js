@@ -12,7 +12,7 @@ const [loggedInInput, setLoggedInInput] = useContext(UserContext);
         <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect01">Licensee Type:</label>
         </div>
-        <select value={form} class="custom-select" value={loggedInInput['type']} onChange={(e)=>setLoggedInInput({...loggedInInput, "type" : e.target.value})} onChange={(e)=>setForm(e.target.value)}  id="inputGroupSelect01">
+        <select value={form} class="custom-select"onChange={(e)=>setForm(e.target.value)}  id="inputGroupSelect01">
             <option value='individual' selected>Individual </option>
             <option value='limited'>Limited Liability Corporation</option>
             <option value='limited'>Partnership</option>

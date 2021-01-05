@@ -23,15 +23,12 @@ function App() {
   const [currentStep, setCurrentStep] = useState(0);
   const [activeStep, setActiveStep] = React.useState(3);
   
- 
-  
   return (
-
     <UserContext.Provider value={[loggedInUser, setLoggedInUser, loggedInInput, setLoggedInInput, currentStep, setCurrentStep]}>
       <Router>
       <Switch>
         <Route exact path="/">
-          <Home></Home>
+          <Login></Login>
         </Route>
         <PrivateRoute exact path="/BasicInformation">
           <Dashboard></Dashboard>
